@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart,addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 // modules avoids the naming conflicts
 
@@ -59,6 +59,16 @@ products.forEach((product)=>{
 
 document.querySelector('.js-products-grid').innerHTML = productsHTMl
 
+function updateCartQuantity(){
+    // let cart section interactive
+      let cartQuantity = 0 ;
+      cart.forEach((cartItem)=>{
+        cartQuantity += cartItem.quantity;
+       });
+
+       document.querySelector('.js-cart-quantity')
+       .innerHTML = cartQuantity;
+}
 
 document.querySelectorAll('.js-add-to-cart')
 .forEach((button)=>{
@@ -66,47 +76,9 @@ document.querySelectorAll('.js-add-to-cart')
       // date set convert kebab-case to camel case
       // console.log(button.dataset.productName);
 
-
       const productId = button.dataset.productId;
-
-      document.querySelectorAll('.js-quantity-selector')
-      .forEach((el)=>{
-          el.classList.add(`.js-quantity-selector-${productId}`);
-      });
-
-
-    console.log(document.querySelector(`.js-quantity-selector-${productId}`).value);
-      
-
-      let matchingItem;
-
-      cart.forEach((item)=>{
-        // check if item already exist
-          if(productId === item.productId){
-             matchingItem = item;      
-          }
-      });
-
-      if(matchingItem) {
-        //  if exists increase the quantity
-        matchingItem.quantity += 1;
-      }else {
-        // not in a cart add item to tha cart
-          cart.push({
-          productId,
-          quantity:1
-        });
-      }
-    
-    
-      // let cart section interactive
-      let cartQuantity = 0 ;
-      cart.forEach((item)=>{
-        cartQuantity += item.quantity;
-       });
-
-       document.querySelector('.js-cart-quantity')
-       .innerHTML = cartQuantity;
-    })
+        addToCart(productId);
+        updateCartQuantity();  
+    });
   }
 )
