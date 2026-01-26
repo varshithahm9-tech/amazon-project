@@ -51,6 +51,8 @@ products.forEach((product)=>{
             Added
           </div>
 
+
+          <p class="js-alert-addToCart "></p>
           <button class="add-to-cart-button 
           button-primary js-add-to-cart"
           data-product-id="${product.id}">
@@ -80,9 +82,26 @@ document.querySelectorAll('.js-add-to-cart')
       // date set convert kebab-case to camel case
       // console.log(button.dataset.productName);
 
+      document.querySelector('.js-alert-addToCart').innerHTML = 'Added to cart';
+
+      setTimeout(() => {
+      document.querySelector('.js-alert-addToCart').innerHTML = '';
+      }, 2000);
       const productId = button.dataset.productId;
-        addToCart(productId);
-        updateCartQuantity();  
+
+       // get the parent product container
+      const productContainer = button.closest('.product-container');
+
+      // get selected quantity
+      const quantitySelector =
+        productContainer.querySelector('.js-quantity-selector');
+
+      const quantity = Number(quantitySelector.value);
+      console.log(quantity);
+      
+
+      addToCart(productId,quantity);
+      updateCartQuantity();  
     });
   }
 )
