@@ -1,7 +1,8 @@
 import { cart,addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
-import { formatCurrency } from "./utils/money.js";
+import  formatCurrency  from "./utils/money.js";
 // modules avoids the naming conflicts
+updateCartQuantity();
 
 let productsHTMl = '';
 products.forEach((product)=>{
@@ -67,8 +68,10 @@ function updateCartQuantity(){
         cartQuantity += cartItem.quantity;
        });
 
-       document.querySelector('.js-cart-quantity')
-       .innerHTML = cartQuantity;
+    localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
+
+    document.querySelector('.js-cart-quantity').textContent = cartQuantity || 0;
+
 }
 
 document.querySelectorAll('.js-add-to-cart')
