@@ -45,10 +45,44 @@ products.forEach((product)=>{
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button 
+          button-primary js-add-to-cart"
+          data-product-id="${product.id}">
             Add to Cart
           </button>
         </div>`;
 });
 
 document.querySelector('.js-products-grid').innerHTML = productsHTMl
+
+
+document.querySelectorAll('.js-add-to-cart')
+.forEach((button)=>{
+    button.addEventListener('click',() => {
+      // date set convert kebab-case to camel case
+      // console.log(button.dataset.productName);
+      const productId = button.dataset.productId;
+
+      let matchingItem;
+
+      cart.forEach((item)=>{
+        // check if item already exist
+          if(productId === item.productId){
+             matchingItem = item;      
+          }
+      });
+
+      if(matchingItem) {
+        //  if exists increase the quantity
+        matchingItem.quantity += 1;
+      }else {
+        // not in a cart add item to tha cart
+          cart.push({
+          productId,
+          quantity:1
+        });
+      }
+       console.log(cart);   
+    })
+  }
+)
