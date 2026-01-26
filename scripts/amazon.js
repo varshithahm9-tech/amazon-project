@@ -1,3 +1,6 @@
+import { cart } from "../data/cart.js";
+// modules avoids the naming conflicts
+
 let productsHTMl = '';
 products.forEach((product)=>{
     productsHTMl += `
@@ -24,7 +27,7 @@ products.forEach((product)=>{
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class="js-quantity-selector">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -61,7 +64,18 @@ document.querySelectorAll('.js-add-to-cart')
     button.addEventListener('click',() => {
       // date set convert kebab-case to camel case
       // console.log(button.dataset.productName);
+
+
       const productId = button.dataset.productId;
+
+      document.querySelectorAll('.js-quantity-selector')
+      .forEach((el)=>{
+          el.classList.add(`.js-quantity-selector-${productId}`);
+      });
+
+
+    console.log(document.querySelector(`.js-quantity-selector-${productId}`).value);
+      
 
       let matchingItem;
 
