@@ -24,13 +24,15 @@ export function renderPaymentSummary() {
     const taxCents = totalBeforeTaxCents * 0.1;
     const totalCents = totalBeforeTaxCents + taxCents;
 
+    const cartItemQuantity = JSON.parse(localStorage.getItem('cartQuantity'));
+
     const paymentSummaryHTML = `
         <div class="payment-summary-title">
                 Order Summary
             </div>
 
             <div class="payment-summary-row">
-                <div>Items (3):</div>
+                <div>Items (${cartItemQuantity}):</div>
                 <div class="payment-summary-money">
                 $${formatCurrency(productPriceCents)}</div>
             </div>

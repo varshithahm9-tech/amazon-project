@@ -134,5 +134,8 @@ export function renderOrderSummary() {
       renderPaymentSummary();
     });
   });
+
+  const cartItemQuantity = JSON.parse(localStorage.getItem('cartQuantity'));
+  document.querySelector('.js-return-to-home-link').innerHTML = `${cartItemQuantity} Items`
 }
 
