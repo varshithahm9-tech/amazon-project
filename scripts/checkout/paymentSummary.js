@@ -1,4 +1,4 @@
-import { cart } from '../../data/cart.js';
+import { cart,getCartQuantity } from '../../data/cart.js';
 import { getDeliveryOption } from '../../data/delivery.js';
 import { getProduct } from '../../data/products.js';
 import formatCurrency from '../utils/money.js';
@@ -24,7 +24,7 @@ export function renderPaymentSummary() {
     const taxCents = totalBeforeTaxCents * 0.1;
     const totalCents = totalBeforeTaxCents + taxCents;
 
-    const cartItemQuantity = JSON.parse(localStorage.getItem('cartQuantity'));
+    const cartItemQuantity = getCartQuantity();
 
     const paymentSummaryHTML = `
         <div class="payment-summary-title">

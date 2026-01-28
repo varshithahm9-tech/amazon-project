@@ -1,4 +1,4 @@
-import { cart, removeFromCart, updateDeliveryOption } from "../../data/cart.js";
+import { cart, removeFromCart, updateDeliveryOption,getCartQuantity } from "../../data/cart.js";
 import { products,getProduct } from "../../data/products.js";
 import formatCurrency from "../utils/money.js";
 import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
@@ -121,8 +121,12 @@ export function renderOrderSummary() {
 
 
       // render the payment for html regenerate
+      getCartQuantity();
       renderPaymentSummary();
-
+      
+      // update the ordersummary page item quantity
+      const cartItemQuantity =getCartQuantity();
+      document.querySelector('.js-return-to-home-link').innerHTML = `${cartItemQuantity} Items`
     });
   });
 
@@ -135,7 +139,7 @@ export function renderOrderSummary() {
     });
   });
 
-  const cartItemQuantity = JSON.parse(localStorage.getItem('cartQuantity'));
+  const cartItemQuantity = getCartQuantity();
   document.querySelector('.js-return-to-home-link').innerHTML = `${cartItemQuantity} Items`
 }
 

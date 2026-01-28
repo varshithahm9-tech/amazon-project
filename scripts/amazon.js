@@ -1,4 +1,4 @@
-import { cart,addToCart } from "../data/cart.js";
+import { cart,addToCart, getCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import  formatCurrency  from "./utils/money.js";
 // modules avoids the naming conflicts
@@ -65,13 +65,7 @@ document.querySelector('.js-products-grid').innerHTML = productsHTMl
 
 function updateCartQuantity(){
     // let cart section interactive
-      let cartQuantity = 0 ;
-      cart.forEach((cartItem)=>{
-        cartQuantity += cartItem.quantity;
-       });
-
-    localStorage.setItem('cartQuantity', JSON.stringify(cartQuantity));
-
+    let cartQuantity = getCartQuantity();
     document.querySelector('.js-cart-quantity').textContent = cartQuantity || 0;
 
 }
@@ -101,7 +95,6 @@ document.querySelectorAll('.js-add-to-cart')
       
 
       addToCart(productId,quantity);
-      updateCartQuantity();  
     });
   }
 )
