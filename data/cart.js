@@ -55,6 +55,36 @@ export function removeFromCart(productId){
     saveToStorage();
 }
 
+// export function updateFromCart(input) {
+//   if (!input) return;
+
+//   // hide all other inputs
+//   document.querySelectorAll('.js-update-input').forEach((el) => {
+//     el.classList.add('hidden');
+//   });
+
+//   // show only this product input
+//   input.classList.remove('hidden');
+//   input.focus();
+// }
+
+
+
+// This code was copied from the solutions of exercises 14f - 14n.
+export function updateQuantity(productId, newQuantity) {
+  let matchingItem;
+
+  cart.forEach((cartItem) => {
+    if (productId === cartItem.productId) {
+      matchingItem = cartItem;
+    }
+  });
+
+  matchingItem.quantity = newQuantity;
+
+  saveToStorage();
+}
+
 export function updateDeliveryOption(productId,deliveryOptionId) {
       let matchingItem;
       cart.forEach((cartItem)=>{
