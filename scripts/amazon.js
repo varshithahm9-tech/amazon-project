@@ -76,15 +76,19 @@ document.querySelectorAll('.js-add-to-cart')
       // date set convert kebab-case to camel case
       // console.log(button.dataset.productName);
 
-      document.querySelector('.js-alert-addToCart').innerHTML = 'Added to cart';
-
-      setTimeout(() => {
-      document.querySelector('.js-alert-addToCart').innerHTML = '';
-      }, 2000);
       const productId = button.dataset.productId;
 
        // get the parent product container
       const productContainer = button.closest('.product-container');
+      
+      const alertMessage =
+        productContainer.querySelector('.js-alert-addToCart');
+
+      alertMessage.innerHTML = 'Added to cart';
+
+      setTimeout(() => {
+        alertMessage.innerHTML = '';
+      }, 2000);
 
       // get selected quantity
       const quantitySelector =
