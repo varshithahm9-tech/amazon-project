@@ -1,4 +1,4 @@
-import { loadProducts } from "../data/products.js";
+import { loadProductsFetch } from "../data/products.js";
 import { renderOrderSummary } from "./checkout/ordersummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 // import '../data/cart-class.js';
@@ -12,12 +12,7 @@ import { loadCart } from "../data/cart.js";
 //  and wait for all of them to finish
 
 Promise.all([
-    new Promise((resolve)=>{
-    loadProducts(() =>{
-        // wait each steps to finish
-        resolve('value1');
-    });
-    }),
+    loadProductsFetch(),
 
     new Promise((resolve) =>{
         loadCart(()=>{

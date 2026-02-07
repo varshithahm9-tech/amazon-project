@@ -99,6 +99,33 @@ class Clothing extends Product {
 
 export let products = [];
 
+export function loadProductsFetch() {
+  // fetch makes http req
+  const promise =  fetch(
+    'https://supersimplebackend.dev/products'
+  ).then((response) =>{
+    // response.json(); asynchronoss 
+    return response.json();
+  }).then((productsData) => {
+    // productsData gives array of object as response
+      products = productsData.map((productDetails) => {
+      if(productDetails.type === 'clothing') {
+        return new Clothing(productDetails);
+      }
+      return new Product(productDetails);
+      });
+
+      console.log('load products');
+  });
+
+  return promise;
+}
+
+// loadProductsFetch().then(() =>{
+//     console.log('next steps');
+    
+// });
+
 export function loadProducts(fun) {
   const xhr =  new XMLHttpRequest();
 
