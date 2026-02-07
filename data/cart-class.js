@@ -3,17 +3,19 @@
 class Cart {
     cartItems;
 
-    localStorageKey;
+    // private property ==> to acess inside the class
+    #localStorageKey;
     
     // run the setup code
     // should not return anything 
     constructor(localStorageKey) {
-        this.localStorageKey = localStorageKey ;
-        this.loadFromStorage(); 
+        this.#localStorageKey = localStorageKey ;
+        this.#loadFromStorage(); 
     }
 
-    loadFromStorage()  {
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey)) ;
+    // method private
+    #loadFromStorage()  {
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey)) ;
 
 
         if(!this.cartItems) {
@@ -33,7 +35,7 @@ class Cart {
     };
 
     saveToStorage() {
-        localStorage.setItem(this.localStorageKey,JSON.stringify(this.cartItems));
+        localStorage.setItem(this.#localStorageKey,JSON.stringify(this.cartItems));
     };
 
      addToCart(productId,quantity) {
@@ -101,7 +103,7 @@ class Cart {
     }
 
     getCartQuantity() {
-        const cart =  JSON.parse(localStorage.getItem(this.localStorageKey)) || [];
+        const cart =  JSON.parse(localStorage.getItem(this.#localStorageKey)) || [];
         let cartQuantity = 0 ;
         cart.forEach((cartItem)=>{
             cartQuantity += cartItem.quantity;
@@ -119,7 +121,8 @@ const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
 
 
-
+// Private field '#localStorageKey' must be declared in an enclosing class (at cart-class.js:123:5)
+// cart.#localStorageKey = 'test';
 
 
 console.log(cart);
