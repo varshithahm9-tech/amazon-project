@@ -13,14 +13,24 @@ import { loadCart } from "../data/cart.js";
 
 // we can use await only inside the async fun
 async function loadPage() {
-    console.log('load page');
-    await  loadProductsFetch();
+    try {
+        // manually create an error
+        // throw 'error1';
 
-    const value = await new Promise((resolve) =>{
-        loadCart(()=>{
-            resolve('value3');
-        });   
-    });
+        await  loadProductsFetch();
+
+        const value = await new Promise((resolve,reject) =>{
+            // throw 'error2';
+            // throw will not create for future
+            loadCart(()=>{
+                // reject('error3')
+                resolve('value3');
+            });   
+        });
+    } catch( error) {
+        console.log('unexpected error. please try again later');  
+    }
+
 
     renderOrderSummary();
     renderPaymentSummary(); 
