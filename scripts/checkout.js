@@ -8,23 +8,40 @@ import { loadCart } from "../data/cart.js";
 // promises help keep our code flat
 // use promises instead of callbacks
 
-// promise.all() ==> run mul promises at the same time
-//  and wait for all of them to finish
+//async and await shortcut for promise
+// await ==> wait till promise to finish
 
-Promise.all([
-    loadProductsFetch(),
+// we can use await only inside the async fun
+async function loadPage() {
+    console.log('load page');
+    await  loadProductsFetch();
 
-    new Promise((resolve) =>{
+    const value = await new Promise((resolve) =>{
         loadCart(()=>{
-            resolve();
+            resolve('value3');
         });   
-    })
+    });
 
-]).then((values)=>{
-    console.log(values);
     renderOrderSummary();
-    renderPaymentSummary();
-});
+    renderPaymentSummary(); 
+}
+loadPage();
+
+
+// Promise.all([
+//     loadProductsFetch(),
+
+//     new Promise((resolve) =>{
+//         loadCart(()=>{
+//             resolve();
+//         });   
+//     })
+
+// ]).then((values)=>{
+//     console.log(values);
+//     renderOrderSummary();
+//     renderPaymentSummary();
+// });
 
 
 // new Promise((resolve)=>{
