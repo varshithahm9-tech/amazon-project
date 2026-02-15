@@ -28,6 +28,7 @@ export function saveToStorage() {
 
 export function addToCart(productId,quantity) {
       let matchingItem;
+      // matchingItem and CartItem pointing to same object
       cart.forEach((cartItem)=>{
         // check if item already exist
           if(productId === cartItem.productId){
@@ -47,6 +48,7 @@ export function addToCart(productId,quantity) {
       }
 
     saveToStorage();
+    
     document.querySelector('.js-cart-quantity').textContent = getCartQuantity();
 
 }
@@ -63,20 +65,6 @@ export function removeFromCart(productId){
     cart = newCart;
     saveToStorage();
 }
-
-// export function updateFromCart(input) {
-//   if (!input) return;
-
-//   // hide all other inputs
-//   document.querySelectorAll('.js-update-input').forEach((el) => {
-//     el.classList.add('hidden');
-//   });
-
-//   // show only this product input
-//   input.classList.remove('hidden');
-//   input.focus();
-// }
-
 
 
 // This code was copied from the solutions of exercises 14f - 14n.
@@ -113,7 +101,7 @@ export function getCartQuantity() {
     const cart =  JSON.parse(localStorage.getItem('cart')) || [];
     let cartQuantity = 0 ;
     cart.forEach((cartItem)=>{
-        cartQuantity += cartItem.quantity;
+        cartQuantity += Number(cartItem.quantity);
     });
 
     return cartQuantity;
@@ -131,4 +119,11 @@ export function loadCart(fun) {
 
   xhr.open('GET','https://supersimplebackend.dev/cart');
   xhr.send();
+}
+
+
+// Extra feature: make the cart empty after creating an order.
+export function resetCart() {
+  cart = [];
+  saveToStorage();
 }
